@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="calc_consumo.js"></script>
+    <title>Document</title>
+    </head>
+    
+    <body> 
+        <form action="">
+        <fieldset>
+           
+     <p id="titulo">selecione seu tipo de combustivel</p>
+                <div>
+                   
+                    <label for="etanol">etanol</label>
+                    <input type="radio" name="combustivel" id="etanol" required>
+    
+                    <label for="gasolina">gasolina</label>
+                    <input type="radio" name="combustivell" id="gasolina" required>
+    
+                    <label for="diesel">diesel</label>
+                    <input type="radio" name="combustivelll" id="diesel" required>
+                </div>
+    
+                <label for="consumo">digite o consumo medio do veiculo (km/l)</label>
+                <input type="number" step="0.1" min="5" id="consumo" required>
+    
+                <label for="velocidade"> digite a velocidade media do veiculo</label>
+                <input type="number" min="20" id="velocidade" required>
+    
+                <label for="precoCombustivel">digite o valor do combustivel</label>
+                <input type="number" step="0.001" min="0" id="precoCombustivel" required>
+    
+                <label for="horas">digite as horas de viagem</label>
+                <input type="time" name="horas" id="horas">
+                <button>calcular</button>
+                <p id="resultado"></p>
+       
+        
+     </fieldset>
+    </form>
+
+    </body>
+    </html>
