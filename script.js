@@ -13,7 +13,7 @@ const elemento = {
 
 let combustivelSelecionado;
 
-elemento.form.addEventListener("submit", (evento) => {
+elemento.form.addEventListener('submit', (evento) => {
   evento.preventDefault();
   calcularDistancia(
     input.velocidade_media,
@@ -33,44 +33,55 @@ function calcularDistancia(velocidade, horas, consumo, tipoCombustivel) {
   let horasTotais = (hora * 60 + minuto) / 60;
   let distancia = velocidadeDigitada * horasTotais;
 
-  if (tipoCombustivel == "etanol") {
-    distancia = distancia - distancia * 0.3;
-    calcularConsumo(consumo, distancia);
-    distancia = distancia.toFixed(1);
-    distancia = distancia.replace(".", ",");
-  } else if (tipoCombustivel == "diesel") {
-    distancia = distancia + distancia * 0.15;
-    calcularConsumo(consumo, distancia);
-    distancia = distancia.toFixed(1);
-    distancia = distancia.replace(".", ",");
-  } else {
-    calcularConsumo(consumo, distancia);
-    distancia = distancia.toFixed(1);
-    distancia = distancia.replace(".", ",");
-  }
+  calcularConsumo(consumo, distancia, tipoCombustivel)
+  // if (tipoCombustivel == 'etanol') {
+  //   distancia = distancia - distancia * 0.3;
+  //   calcularConsumo(consumo, distancia);
+  //   distancia = distancia.toFixed(1);
+  //   distancia = distancia.replace(".", ",");
+  // } else if (tipoCombustivel == 'diesel') {
+  //   distancia = distancia + distancia * 0.15;
+  //   calcularConsumo(consumo, distancia);
+  //   distancia = distancia.toFixed(1);
+  //   distancia = distancia.replace(".", ",");
+  // } else {
+  //   calcularConsumo(consumo, distancia);
+  //   distancia = distancia.toFixed(1);
+  //   distancia = distancia.replace(".", ",");
+  // }
 }
 
-function calcularConsumo(consumoMedio, distanciaPercorrida) {
+function calcularConsumo(consumoMedio, distanciaPercorrida, tipoCombustivel) {
   let consumoEmLitros = distanciaPercorrida / consumoMedio;
+  let valorAPagar
 
-  console.log("voce ira gastar " +consumoEmLitros.toFixed(2) +"litros");
+ 
+  if (tipoCombustivel == 'etanol') {
+    consumoEmLitros += (consumoEmLitros * 0.3);
+    valorAPagar = consumoEmLitros * input.preco_combustivel.value;
+    inserirDados(distanciaPercorrida, consumoEmLitros, tipoCombustivel, valorAPagar)
+  } else if (tipoCombustivel == 'diesel') {
+    consumoEmLitros = (consumoEmLitros * 0.85);
+    valorAPagar = consumoEmLitros * input.preco_combustivel.value;
+    inserirDados(distanciaPercorrida, consumoEmLitros, tipoCombustivel, valorAPagar)
+  } else {
+    valorAPagar = consumoEmLitros * input.preco_combustivel.value;
+    inserirDados(distanciaPercorrida, consumoEmLitros, tipoCombustivel, valorAPagar)
+  }
+
+  console.log("voce ira gastar " + consumoEmLitros.toFixed(2) + "litros");
 }
 input.combustivel.forEach((tipoCombustivel) => {
-  tipoCombustivel.addEventListener("change", (evento) => {
+  tipoCombustivel.addEventListener('change', (evento) => {
     combustivelSelecionado = evento.target.id;
     console.log(combustivelSelecionado);
     return combustivelSelecionado;
   });
 });
 
-function selecionarTipoCombustivel() {
-  //para trabalhar com array de tipos dy combustivel
-  //   input.combustivel.forEach((tipoCombustivel) => {
-  //     tipoCombustivel.addEventListener("change", (evento) => {
-  //       combustivel = evento.target.id;
-  //       return combustivel;
-  //     });
-  //     console.log(combustivel)
-  //   });
+function inserirDados(distancia, consumo, tipoCombustivel, valorAPagar){
+  elemento.resultado.innerText = `para uma viajem de ${distancia.toFixed()} km, voce gastará ${consumo.toFixed(2)} litros de ${tipoCombustivel}, com valor total de ${valorAPagar.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}`
+
+
+  elemento.resultado.id = "";
 }
-selecionarTipoCombustivel();
