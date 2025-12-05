@@ -69,7 +69,7 @@ function calcularConsumo(consumoMedio, distanciaPercorrida, tipoCombustivel) {
     inserirDados(distanciaPercorrida, consumoEmLitros, tipoCombustivel, valorAPagar)
   }
 
-  console.log("voce ira gastar " + consumoEmLitros.toFixed(2) + "litros");
+  // console.log("voce ira gastar " + consumoEmLitros.toFixed(2) + "litros");
 }
 input.combustivel.forEach((tipoCombustivel) => {
   tipoCombustivel.addEventListener('change', (evento) => {
@@ -80,7 +80,11 @@ input.combustivel.forEach((tipoCombustivel) => {
 });
 
 function inserirDados(distancia, consumo, tipoCombustivel, valorAPagar){
-  elemento.resultado.innerText = `para uma viajem de ${distancia.toFixed()} km, voce gastará ${consumo.toFixed(2)} litros de ${tipoCombustivel}, com valor total de ${valorAPagar.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}`
+
+  let distanciaFormatada = distancia.toLocaleString("pt-BR")
+    let consumoFormatada = consumo.toLocaleString("pt-BR")
+
+  elemento.resultado.innerText = `para uma viajem de ${distanciaFormatada} km, voce gastará ${consumoFormatada} litros de ${tipoCombustivel}, com valor total de ${valorAPagar.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}`
 
 
   elemento.resultado.id = "";
